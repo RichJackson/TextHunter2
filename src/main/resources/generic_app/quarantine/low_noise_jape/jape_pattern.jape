@@ -1,0 +1,16 @@
+Phase:		Lookup1
+Input:		Lookup Split Sentence
+Options: 	control = appelt
+
+Rule: lookup1
+Priority: 35
+// Lookup 
+
+(
+({Lookup.majorType == "keyword"}{Lookup.majorType == "modifier"})
+|
+({Lookup.majorType == "modifier"}{Lookup.majorType == "keyword"})
+) :match
+
+-->  
+:match.TargetKeyword = {name = :match@cleanString , TargetKeyword = "yes", rule = "target_keyword"}

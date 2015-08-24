@@ -1,0 +1,16 @@
+Imports: { import static gate.Utils.*; }
+Phase: quick_jape
+Input: Token Sentence
+Options: control = Appelt
+
+
+Rule: target_keyword
+(
+{Token.string =~"EMMONDS"}
+|
+{Token.string =~"Property"}
+|
+{Token.string =~"road"}
+):match
+-->
+:match.TargetKeyword = {name = :match@cleanString , TargetKeyword = "yes", rule = "target_keyword"}

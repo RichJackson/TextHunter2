@@ -2,3 +2,4 @@
 /home/rich/other-projects/HelloSpring/src/main/java/io/bluecell/web/controllers/GreetingController.java
 /home/rich/other-projects/HelloSpring/src/main/java/io/bluecell/web/controllers/DocumentController.java
 /home/rich/other-projects/HelloSpring/src/main/java/io/bluecell/model/Greeting.java
+/home/rich/other-projects/HelloSpring/src/main/java/io/bluecell/service/TextHighlighterService.java

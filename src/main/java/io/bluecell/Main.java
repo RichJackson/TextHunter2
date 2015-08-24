@@ -1,17 +1,25 @@
 package io.bluecell;
 
 import gate.Gate;
+import io.bluecell.service.TextHighlighterService;
 import java.io.File;
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        SpringApplication.run(Main.class, args);  
         Gate.setGateHome(new File("/home/rich/GATE_Developer_8.1"));
-        Gate.init();
+        Gate.init();        
+        SpringApplication.run(Main.class, args);  
+
+    }
+    
+    @Bean
+    public TextHighlighterService textHighlighterService(){
+        return new TextHighlighterService();
     }
 
 }
