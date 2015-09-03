@@ -10,6 +10,10 @@ public class Greeting {
     private long id;
     private String content;
 
+    public Greeting(String content) {
+        this.content = content;
+    }
+    
     public long getId() {
         return id;
     }

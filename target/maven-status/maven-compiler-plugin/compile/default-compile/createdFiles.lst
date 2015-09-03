@@ -1,4 +1,7 @@
 io/bluecell/service/TextHighlighterService.class
 io/bluecell/Main.class
+io/bluecell/web/controllers/GreetingController.class
+io/bluecell/WebSocketConfig.class
+io/bluecell/model/HelloMessage.class
 io/bluecell/model/Greeting.class
 io/bluecell/web/controllers/DocumentController.class

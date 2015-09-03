@@ -9,12 +9,15 @@ package io.bluecell.web.controllers;
 import gate.Factory;
 import gate.creole.ResourceInstantiationException;
 import io.bluecell.model.Greeting;
+import io.bluecell.model.HelloMessage;
 import io.bluecell.service.TextHighlighterService;
 import java.io.File;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -30,11 +33,13 @@ public class DocumentController {
     @Autowired
     TextHighlighterService thService;
     
+    gate.Document doc;
+    
     @RequestMapping(value="/document", method=RequestMethod.GET)
     public String greetingForm(Model model) {
             URL resourceUrl = getClass().getResource("/exampledocs/11758.docx");	            
         try {
-            gate.Document doc = Factory.newDocument(resourceUrl);
+            doc = Factory.newDocument(resourceUrl);
             thService.execute(doc);
             model.addAttribute("document", doc);
         } catch (ResourceInstantiationException ex) {
@@ -50,5 +55,13 @@ public class DocumentController {
         model.addAttribute("greeting", greeting);
         return "document";
     }
+    
+    @MessageMapping("/nextAnn")
+    @SendTo("/topic/nextAnn")
+    public Greeting greeting(HelloMessage message) throws Exception {
+        //Thread.sleep(3000); // simulated delay
+        return new Greeting("Hello, " + message.getName() + "!");
+    }    
+    
   
 }
