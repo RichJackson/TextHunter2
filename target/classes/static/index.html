@@ -20,17 +20,24 @@
             }
 
             function connect() {
-                var socket = new SockJS('/update');
+                var socket = new SockJS('/updateAnn');
                 stompClient = Stomp.over(socket);
                 stompClient.connect({}, function (frame) {
                     setConnected(true);
                     console.log('Connected: ' + frame);
-                    stompClient.subscribe('/topic/update', function (annotation) {
-                        console.log('annotation is '+ annotation);
-                        console.log('parsed is '+ JSON.parse(annotation.body).content)
-                        showAnnotation(JSON.parse(annotation.body).content);
+                    stompClient.subscribe('/topic/updateAnn', function (annotation) {
+                        showAnnotation(annotation.body);
                     });
                 });
+                var socket = new SockJS('/updateDoc');
+                stompClient = Stomp.over(socket);
+                stompClient.connect({}, function (frame) {
+                    setConnected(true);
+                    console.log('Connected: ' + frame);
+                    stompClient.subscribe('/topic/updateDoc', function (annotation) {
+                        showAnnotation(annotation.body);
+                    });
+                });                
             }
 
             function disconnect() {
@@ -44,15 +51,17 @@
             function nextAnn() {
                 //var name = document.getElementById('name').value;
                 var instruction = "nextAnn"
-                stompClient.send("/app/update", {}, JSON.stringify({'instruction': instruction}));
+                stompClient.send("/app/updateAnn", {}, JSON.stringify({'instruction': instruction}));
+            }
+            
+            function nextDoc(){
+                var instruction = "nextDoc"
+                stompClient.send("/app/updateDoc", {}, JSON.stringify({'instruction': instruction}));                
             }
             
             function showAnnotation(message) {
                 var response = document.getElementById('response');
-                var p = document.createElement('p');
-                p.style.wordWrap = 'break-word';
-                p.appendChild(document.createTextNode(message));
-                response.appendChild(p);
+                response.innerHTML = message;
             }            
 
 //            function prevAnn() {
@@ -111,7 +120,7 @@
                     <div class="row">        
                         <div class="col-sm-3">
                             <button id="nextAnn" onclick="nextAnn();">Next Annotation</button>
-                            <button id="prevAnn"  onclick="showAnnotation('hello');">Previous Annotation</button>
+                            <button id="prevAnn"  onclick="nextAnn();">Previous Annotation</button>
                         </div>
                         <div class="col-sm-3">            
                             <button id="nextDoc" onclick="nextDoc();">Next Document</button>           

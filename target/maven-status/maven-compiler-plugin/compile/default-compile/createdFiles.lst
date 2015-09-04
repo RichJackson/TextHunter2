@@ -1,6 +1,8 @@
+io/bluecell/dao/DocumentDAO.class
 io/bluecell/service/TextHighlighterService.class
 io/bluecell/Main.class
 io/bluecell/WebSocketConfig.class
 io/bluecell/model/UpdateMessage.class
+io/bluecell/dao/DocumentDAOImpl.class
 io/bluecell/model/Greeting.class
 io/bluecell/web/controllers/DocumentController.class
