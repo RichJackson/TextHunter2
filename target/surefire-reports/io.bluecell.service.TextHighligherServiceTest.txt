@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: io.bluecell.service.TextHighligherServiceTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.626 sec - in io.bluecell.service.TextHighligherServiceTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.263 sec - in io.bluecell.service.TextHighligherServiceTest

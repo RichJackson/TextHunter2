@@ -6,18 +6,24 @@
 package io.bluecell.web.controllers;
 
 
+import gate.Annotation;
+import gate.AnnotationSet;
 import gate.Factory;
+import gate.Gate;
 import gate.creole.ResourceInstantiationException;
 import io.bluecell.model.Greeting;
-import io.bluecell.model.HelloMessage;
+import io.bluecell.model.UpdateMessage;
 import io.bluecell.service.TextHighlighterService;
 import java.io.File;
 import java.net.URL;
+import java.util.Iterator;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -34,6 +40,11 @@ public class DocumentController {
     TextHighlighterService thService;
     
     gate.Document doc;
+    Iterator<Annotation> annots;    
+    
+    
+
+    
     
     @RequestMapping(value="/document", method=RequestMethod.GET)
     public String greetingForm(Model model) {
@@ -56,12 +67,31 @@ public class DocumentController {
         return "document";
     }
     
-    @MessageMapping("/nextAnn")
-    @SendTo("/topic/nextAnn")
-    public Greeting greeting(HelloMessage message) throws Exception {
-        //Thread.sleep(3000); // simulated delay
-        return new Greeting("Hello, " + message.getName() + "!");
-    }    
+    public String loadDoc() throws Exception {
+            URL resourceUrl = getClass().getResource("/exampledocs/11758.docx");	            
+        try {
+            doc = Factory.newDocument(resourceUrl);
+            thService.execute(doc);
+            annots = gate.Utils.inDocumentOrder(doc.getAnnotations("AutoCoder")).iterator();
+        } catch (ResourceInstantiationException ex) {
+            Logger.getLogger(DocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "document loaded";        
+    }
+          
     
+    @MessageMapping("/update")
+    @SendTo("/topic/update")
+    public Greeting update(UpdateMessage message) throws Exception {
+
+//        if(doc == null){
+//            loadDoc();
+//        }
+        switch(message.getInstruction()){
+            case "nextAnn": 
+                return new Greeting("hello" + message.getInstruction());
+            default: return null;            
+        }               
+    }    
   
 }

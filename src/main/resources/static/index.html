@@ -1,66 +1,162 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Hello WebSocket</title>
-    <script src="http://cdn.sockjs.org/sockjs-0.3.4.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js"></script>
-    <script type="text/javascript">
-        var stompClient = null;
+<html >
+    <head>
+        <title>Welcome to TextHunter</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <script src="http://cdn.sockjs.org/sockjs-0.3.4.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js"></script>
+        <script type="text/javascript">
+            var stompClient = null;
 
-        function setConnected(connected) {
-            document.getElementById('connect').disabled = connected;
-            document.getElementById('disconnect').disabled = !connected;
-            document.getElementById('conversationDiv').style.visibility = connected ? 'visible' : 'hidden';
-            document.getElementById('response').innerHTML = '';
-        }
-
-        function connect() {
-            var socket = new SockJS('/hello');
-            stompClient = Stomp.over(socket);
-            stompClient.connect({}, function(frame) {
-                setConnected(true);
-                console.log('Connected: ' + frame);
-                stompClient.subscribe('/topic/greetings', function(greeting){
-                    showGreeting(JSON.parse(greeting.body).content);
-                });
-            });
-        }
-
-        function disconnect() {
-            if (stompClient != null) {
-                stompClient.disconnect();
+            function setConnected(connected) {
+                document.getElementById('connect').disabled = connected;
+                document.getElementById('disconnect').disabled = !connected;
+                document.getElementById('conversationDiv').style.visibility = connected ? 'visible' : 'hidden';
+                document.getElementById('response').innerHTML = '';
             }
-            setConnected(false);
-            console.log("Disconnected");
-        }
 
-        function sendName() {
-            var name = document.getElementById('name').value;
-            stompClient.send("/app/hello", {}, JSON.stringify({ 'name': name }));
-        }
+            function connect() {
+                var socket = new SockJS('/update');
+                stompClient = Stomp.over(socket);
+                stompClient.connect({}, function (frame) {
+                    setConnected(true);
+                    console.log('Connected: ' + frame);
+                    stompClient.subscribe('/topic/update', function (annotation) {
+                        console.log('annotation is '+ annotation);
+                        console.log('parsed is '+ JSON.parse(annotation.body).content)
+                        showAnnotation(JSON.parse(annotation.body).content);
+                    });
+                });
+            }
 
-        function showGreeting(message) {
-            var response = document.getElementById('response');
-            var p = document.createElement('p');
-            p.style.wordWrap = 'break-word';
-            p.appendChild(document.createTextNode(message));
-            response.appendChild(p);
-        }
-    </script>
-</head>
-<body onload="disconnect()">
-<noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being enabled. Please enable
-    Javascript and reload this page!</h2></noscript>
-<div>
-    <div>
-        <button id="connect" onclick="connect();">Connect</button>
-        <button id="disconnect" disabled="disabled" onclick="disconnect();">Disconnect</button>
+            function disconnect() {
+                if (stompClient != null) {
+                    stompClient.disconnect();
+                }
+                setConnected(false);
+                console.log("Disconnected");
+            }
+
+            function nextAnn() {
+                //var name = document.getElementById('name').value;
+                var instruction = "nextAnn"
+                stompClient.send("/app/update", {}, JSON.stringify({'instruction': instruction}));
+            }
+            
+            function showAnnotation(message) {
+                var response = document.getElementById('response');
+                var p = document.createElement('p');
+                p.style.wordWrap = 'break-word';
+                p.appendChild(document.createTextNode(message));
+                response.appendChild(p);
+            }            
+
+//            function prevAnn() {
+//                var name = document.getElementById('name').value;
+//                stompClient.send("/app/hello", {}, JSON.stringify({'name': name}));
+//                var response = document.getElementById('response');
+//                var p = document.createElement('p');
+//                p.style.wordWrap = 'break-word';
+//                p.appendChild(document.createTextNode(message));
+//                response.appendChild(p);
+//            }
+
+        </script>  
+    </head>
+
+    <body>
+
+        <div class="container">
+            <h3>Tabs</h3>
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#home">Choose Project</a></li>
+                <li><a data-toggle="tab" href="#menu1">Annotate</a></li>
+                <li><a data-toggle="tab" href="#menu2">View full screen</a></li>
+                <li><a data-toggle="tab" href="#menu3">Choose Dictionary</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Toggle Assisted coding/Autocoding
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" onclick="switchToAssised">Assisted</a></li>
+                        <li><a href="#" onclick="switchToAuto">Auto</a></li>
+                    </ul>
+                </li>          
+                <li><a data-toggle="tab" href="#menu5">Help</a></li>
+                <li><a data-toggle="tab" href="#menu6">Logout</a></li> 
+            </ul>  
+
+
+            <div class="tab-content">
+                <div id="home" class="tab-pane fade in active">
+                    <h3>HOME</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+                <div id="menu1" class="tab-pane fade">
+                    <h3>Menu 1</h3>
+                    <div class="row">
+                        <div class="col-sm-1">
+                            <button id="connect" onclick="connect();">Connect</button>
+                            <button id="disconnect" onclick="disconnect();">Disconnect</button>  
+                        </div>
+                    </div>   
+                      <div id="conversationDiv">
+                    <p>Annotation Text will appear here</p>
+                    <p id="response"></p>      
+                      </div>
+
+                    <div class="row">        
+                        <div class="col-sm-3">
+                            <button id="nextAnn" onclick="nextAnn();">Next Annotation</button>
+                            <button id="prevAnn"  onclick="showAnnotation('hello');">Previous Annotation</button>
+                        </div>
+                        <div class="col-sm-3">            
+                            <button id="nextDoc" onclick="nextDoc();">Next Document</button>           
+                            <button id="prevDoc" onclick="prevDoc();">Previous Document</button>            
+                        </div>
+                    </div>
+
+                    <div id="keyAnnotDiv">
+                        <label>What is the value?</label><input type="text" id="keyAnnotValue" />
+                        <button id="sendName" onclick="sendName();">Send</button>
+                        <p id="response"></p>
+                    </div>
+                    <div id="autoCoderAnnotDiv">
+                        <label>Autocoder thinks this is</label><input type="text" id="autoCoderAnnotValue" />
+                        <p id="response"></p>
+                    </div>        
+                </div>      
+            <div id="menu2" class="tab-pane fade">
+                <h3>Menu 2</h3>
+                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+            </div>
+            <div id="menu3" class="tab-pane fade">
+                <h3>Menu 3</h3>
+                <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+            </div>
+            <div id="menu4" class="tab-pane fade">
+                <h3>Menu 4</h3>
+                <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+            </div>
+            <div id="menu5" class="tab-pane fade">
+                <h3>Menu 5</h3>
+                <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+            </div>
+            <div id="menu6" class="tab-pane fade">
+                <h3>Menu 6</h3>
+                <p>Logging you out</p>
+            </div>      
+        </div>
+
+
     </div>
-    <div id="conversationDiv">
-        <label>What is your name?</label><input type="text" id="name" />
-        <button id="sendName" onclick="sendName();">Send</button>
-        <p id="response"></p>
-    </div>
-</div>
+
+
+
+
+
 </body>
 </html>
