@@ -32,34 +32,23 @@ public class DocumentController {
     DocumentDAO dao;
     
     GateDocumentService gateDocService;                      
-    
-    @MessageMapping("/updateAnn")
-    @SendTo("/topic/updateAnn")
-    public Annotation updateAnn(UpdateMessage message) throws Exception {
-
-        switch(message.getInstruction()){
-            case "nextAnn": 
-                return gateDocService.nextAnnotation();            
-            default: return null;            
-        }               
-    }   
-    
-    @MessageMapping("/updateDoc")
-    @SendTo("/topic/updateDoc")
-    public gate.Document updateDoc(UpdateMessage message) throws Exception {
+         
+    @MessageMapping("/update")
+    @SendTo("/topic/update")
+    public gate.DocumentContent updateDoc(UpdateMessage message) throws Exception {
         switch(message.getInstruction()){
             case "nextDoc": 
-                return gateDocService.nextDoc();
-            case "PrevDoc":                 
-                return gateDocService.prevDoc();          
-            case "LoadDocs":                 
-                return loadDocs();                  
+                return thService.execute(gateDocService.nextDoc()).getContent();
+            case "prevDoc":                 
+                return thService.execute(gateDocService.prevDoc()).getContent();          
+            case "loadDocs":                 
+                return thService.execute(loadDocs()).getContent();                  
             default: return null;            
         }               
     }      
 
     private Document loadDocs(){
-        gateDocService = new GateDocumentService(dao.list());
+        gateDocService = new GateDocumentService(dao.list());                        
         return gateDocService.getCurrentDoc();
     } 
 }

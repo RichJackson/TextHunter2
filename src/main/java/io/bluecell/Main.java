@@ -3,6 +3,7 @@ package io.bluecell;
 import gate.Gate;
 import io.bluecell.dao.DocumentDAO;
 import io.bluecell.dao.DocumentDAOImpl;
+import io.bluecell.dao.DocumentDAOTestImpl;
 import io.bluecell.service.TextHighlighterService;
 import java.io.File;
 import org.springframework.boot.*;
@@ -23,6 +24,6 @@ public class Main {
     }
     @Bean
     public DocumentDAO documentDAO(){
-        return new DocumentDAOImpl();
+        return new DocumentDAOTestImpl();
     }
 }

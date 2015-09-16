@@ -52,7 +52,7 @@ public class DocumentDAOTestImpl implements DocumentDAO {
         };
 
         List<gate.Document> returnList = new ArrayList<>();
-        for (int i = 0; i <= urlList.length; i++) {
+        for (int i = 0; i <= urlList.length-1; i++) {
             URL resourceUrl = getClass().getResource(urlList[i]);
 
                 gate.Document doc;

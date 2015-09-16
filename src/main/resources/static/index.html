@@ -20,28 +20,19 @@
             }
 
             function connect() {
-                var socket = new SockJS('/updateAnn');
+                var socket = new SockJS('/update');
                 stompClient = Stomp.over(socket);
                 stompClient.connect({}, function (frame) {
                     setConnected(true);
                     console.log('Connected: ' + frame);
-                    stompClient.subscribe('/topic/updateAnn', function (annotation) {
+                    stompClient.subscribe('/topic/update', function (annotation) {
                         showAnnotation(annotation.body);
                     });
                 });
-                var socket = new SockJS('/updateDoc');
-                stompClient = Stomp.over(socket);
-                stompClient.connect({}, function (frame) {
-                    setConnected(true);
-                    console.log('Connected: ' + frame);
-                    stompClient.subscribe('/topic/updateDoc', function (annotation) {
-                        showAnnotation(annotation.body);
-                    });
-                });                
             }
 
             function disconnect() {
-                if (stompClient != null) {
+                if (stompClient !== null) {
                     stompClient.disconnect();
                 }
                 setConnected(false);
@@ -50,30 +41,24 @@
 
             function nextAnn() {
                 //var name = document.getElementById('name').value;
-                var instruction = "nextAnn"
-                stompClient.send("/app/updateAnn", {}, JSON.stringify({'instruction': instruction}));
+                var instruction = "nextAnn";
+                stompClient.send("/app/update", {}, JSON.stringify({'instruction': instruction}));
             }
             
             function nextDoc(){
-                var instruction = "nextDoc"
-                stompClient.send("/app/updateDoc", {}, JSON.stringify({'instruction': instruction}));                
+                var instruction = "nextDoc";
+                stompClient.send("/app/update", {}, JSON.stringify({'instruction': instruction}));                
+            }
+            
+            function loadDocs(){
+                var instruction = "loadDocs";
+                stompClient.send("/app/update", {}, JSON.stringify({'instruction': instruction}));                
             }
             
             function showAnnotation(message) {
                 var response = document.getElementById('response');
                 response.innerHTML = message;
-            }            
-
-//            function prevAnn() {
-//                var name = document.getElementById('name').value;
-//                stompClient.send("/app/hello", {}, JSON.stringify({'name': name}));
-//                var response = document.getElementById('response');
-//                var p = document.createElement('p');
-//                p.style.wordWrap = 'break-word';
-//                p.appendChild(document.createTextNode(message));
-//                response.appendChild(p);
-//            }
-
+            }
         </script>  
     </head>
 
@@ -109,7 +94,7 @@
                     <div class="row">
                         <div class="col-sm-1">
                             <button id="connect" onclick="connect();">Connect</button>
-                            <button id="disconnect" onclick="disconnect();">Disconnect</button>  
+                            <button id="disconnect" onclick="loadDocs();">Load Docs</button>  
                         </div>
                     </div>   
                       <div id="conversationDiv">

@@ -26,8 +26,8 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
  *
  * @author rich
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes=TestConfig.class ,loader=AnnotationConfigContextLoader.class)
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@ContextConfiguration(classes=TestConfig.class ,loader=AnnotationConfigContextLoader.class)
 public class DocumentControllerTest {
     
     public DocumentControllerTest() {
@@ -52,33 +52,33 @@ public class DocumentControllerTest {
     /**
      * Test of updateAnn method, of class DocumentController.
      */
-    @Ignore
-    @Test
-    public void testUpdateAnn() throws Exception {
-        System.out.println("updateAnn");
-        UpdateMessage message = null;
-        DocumentController instance = new DocumentController();
-        Annotation expResult = null;
-        Annotation result = instance.updateAnn(message);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of updateDoc method, of class DocumentController.
-     */
-    @Ignore
-    @Test
-    public void testUpdateDoc() throws Exception {
-        System.out.println("updateDoc");
-        UpdateMessage message = null;
-        DocumentController instance = new DocumentController();
-        DocumentContent expResult = null;
-        Document result = instance.updateDoc(message);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+//    @Ignore
+//    @Test
+//    public void testUpdateAnn() throws Exception {
+//        System.out.println("updateAnn");
+//        UpdateMessage message = null;
+//        DocumentController instance = new DocumentController();
+//        Annotation expResult = null;
+//        Annotation result = instance.updateAnn(message);
+//        assertEquals(expResult, result);
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
+//
+//    /**
+//     * Test of updateDoc method, of class DocumentController.
+//     */
+//    @Ignore
+//    @Test
+//    public void testUpdateDoc() throws Exception {
+//        System.out.println("updateDoc");
+//        UpdateMessage message = null;
+//        DocumentController instance = new DocumentController();
+//        DocumentContent expResult = null;
+//        Document result = instance.updateDoc(message);
+//        assertEquals(expResult, result);
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
     
 }

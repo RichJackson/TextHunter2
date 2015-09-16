@@ -85,6 +85,9 @@ public class GateDocumentService {
     }
     
     public Document getCurrentDoc() {
+        if (currentDoc==null){
+            currentDoc = docs.next();
+        }
         return currentDoc;
     }    
 }

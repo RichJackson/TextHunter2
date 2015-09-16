@@ -7,8 +7,6 @@ package io.bluecell.service;
 
 import gate.Corpus;
 import gate.Factory;
-import gate.FeatureMap;
-import gate.Resource;
 import gate.creole.ExecutionException;
 import gate.creole.RealtimeCorpusController;
 import gate.util.persistence.PersistenceManager;
@@ -16,8 +14,6 @@ import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.context.annotation.Bean;
 
 /**
  *
