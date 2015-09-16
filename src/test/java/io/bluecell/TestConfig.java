@@ -7,6 +7,7 @@ package io.bluecell;
 
 import io.bluecell.dao.DocumentDAO;
 import io.bluecell.dao.DocumentDAOImpl;
+import io.bluecell.dao.DocumentDAOTestImpl;
 import io.bluecell.service.TextHighlighterService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,6 +27,6 @@ public class TestConfig {
         }
         @Bean
         public DocumentDAO documentDAO(){
-            return new DocumentDAOImpl();
+            return new DocumentDAOTestImpl();
         }    
 }
