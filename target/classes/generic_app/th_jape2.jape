@@ -1,7 +1,0 @@
-Phase: quick_jape
-Input: Nothing
-Options: control = Once
-Rule: matchNothing
-({Nothing}):nothing
- -->
-{}

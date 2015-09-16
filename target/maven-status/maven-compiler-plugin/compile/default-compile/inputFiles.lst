@@ -1,9 +1,0 @@
-/home/rich/other-projects/HelloSpring/src/main/java/io/bluecell/Main.java
-/home/rich/other-projects/HelloSpring/src/main/java/io/bluecell/service/GateDocumentService.java
-/home/rich/other-projects/HelloSpring/src/main/java/io/bluecell/web/controllers/DocumentController.java
-/home/rich/other-projects/HelloSpring/src/main/java/io/bluecell/WebSocketConfig.java
-/home/rich/other-projects/HelloSpring/src/main/java/io/bluecell/model/Greeting.java
-/home/rich/other-projects/HelloSpring/src/main/java/io/bluecell/service/TextHighlighterService.java
-/home/rich/other-projects/HelloSpring/src/main/java/io/bluecell/dao/DocumentDAO.java
-/home/rich/other-projects/HelloSpring/src/main/java/io/bluecell/model/UpdateMessage.java
-/home/rich/other-projects/HelloSpring/src/main/java/io/bluecell/dao/DocumentDAOImpl.java
