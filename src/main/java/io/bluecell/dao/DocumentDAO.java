@@ -18,7 +18,7 @@ public interface DocumentDAO {
     
     public List<gate.Document> list();
     
-    public List<gate.Document> getTestSet();
+    //public List<gate.Document> getTestSet();
 
     
 }

@@ -1,0 +1,4 @@
+io/bluecell/web/controllers/DocumentControllerTest.class
+io/bluecell/service/GateDocumentServiceTest.class
+io/bluecell/TestConfig.class
+io/bluecell/service/TextHighlighterServiceTest.class

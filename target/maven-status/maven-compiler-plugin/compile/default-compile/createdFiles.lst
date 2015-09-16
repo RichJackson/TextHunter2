@@ -4,5 +4,6 @@ io/bluecell/Main.class
 io/bluecell/WebSocketConfig.class
 io/bluecell/model/UpdateMessage.class
 io/bluecell/dao/DocumentDAOImpl.class
+io/bluecell/service/GateDocumentService.class
 io/bluecell/model/Greeting.class
 io/bluecell/web/controllers/DocumentController.class

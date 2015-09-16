@@ -1,3 +1,4 @@
-/home/rich/other-projects/HelloSpring/src/test/java/io/bluecell/dao/DocumentDAOImplTest.java
-/home/rich/other-projects/HelloSpring/src/test/java/io/bluecell/service/TextHighligherServiceTest.java
-/home/rich/other-projects/HelloSpring/src/test/java/io/bluecell/TestBase.java
+/home/rich/other-projects/HelloSpring/src/test/java/io/bluecell/service/TextHighlighterServiceTest.java
+/home/rich/other-projects/HelloSpring/src/test/java/io/bluecell/service/GateDocumentServiceTest.java
+/home/rich/other-projects/HelloSpring/src/test/java/io/bluecell/TestConfig.java
+/home/rich/other-projects/HelloSpring/src/test/java/io/bluecell/web/controllers/DocumentControllerTest.java

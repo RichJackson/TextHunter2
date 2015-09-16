@@ -5,33 +5,12 @@
  */
 package io.bluecell.dao;
 
-import com.google.common.collect.Iterators;
-import gate.Document;
-import gate.Factory;
-import gate.creole.ResourceInstantiationException;
 import io.bluecell.service.TextHighlighterService;
-import io.bluecell.web.controllers.DocumentController;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.StringTokenizer;
-import java.util.TreeMap;
-import java.util.logging.Level;
-import org.hibernate.ScrollMode;
-import org.hibernate.ScrollableResults;
-
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 
 /**
  *
@@ -68,29 +47,29 @@ public class DocumentDAOImpl implements DocumentDAO {
 //        return attachmentList;
     }
 
-    @Override
-    public List<Document> getTestSet() {
-        String[] urlList = {
-            "/exampledocs/11758.docx",
-            "/exampledocs/131776.docx",
-            "/exampledocs/152912.docx",
-            "/exampledocs/155317.docx",
-            "/exampledocs/342920.docx"
-        };
-
-        List<gate.Document> returnList = new ArrayList<>();
-        for (int i = 0; i <= urlList.length; i++) {
-            URL resourceUrl = getClass().getResource(urlList[i]);
-            try {
-                gate.Document doc = Factory.newDocument(resourceUrl);
-                thService.execute(doc);
-                returnList.add(doc);
-            } catch (ResourceInstantiationException ex) {
-                java.util.logging.Logger.getLogger(DocumentController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
-        return returnList;
-    }
+//    @Override
+//    public List<Document> getTestSet() {
+//        String[] urlList = {
+//            //"/exampledocs/11758.docx",
+//            "/exampledocs/131776.docx",
+//            "/exampledocs/152912.docx",
+//            "/exampledocs/155317.docx",
+//            "/exampledocs/342920.docx"
+//        };
+//
+//        List<gate.Document> returnList = new ArrayList<>();
+//        for (int i = 0; i <= urlList.length; i++) {
+//            URL resourceUrl = getClass().getResource(urlList[i]);
+//            try {
+//                gate.Document doc = gate.Factory.newDocument(resourceUrl);
+//                thService.execute(doc);
+//                returnList.add(doc);
+//            } catch (ResourceInstantiationException ex) {
+//                java.util.logging.Logger.getLogger(DocumentController.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
+//
+//        return returnList;
+//    }
 
 }
